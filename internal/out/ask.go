@@ -3,7 +3,7 @@ package out
 import (
 	"fmt"
 
-	"github.com/gleich/lumber/v2"
+	"go.mattglei.ch/timber"
 )
 
 func Ask(question string) string {
@@ -11,7 +11,7 @@ func Ask(question string) string {
 	var response string
 	_, err := fmt.Scanln(&response)
 	if err != nil {
-		lumber.Fatal(err, "failed to ask question")
+		timber.Fatal(err, "failed to ask question")
 	}
 	return response
 }

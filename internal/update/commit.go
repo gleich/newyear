@@ -5,8 +5,8 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/gleich/lumber/v2"
 	"go.mattglei.ch/newyear/internal/api"
+	"go.mattglei.ch/timber"
 )
 
 func Commit(repo api.Repo) error {
@@ -25,6 +25,6 @@ func Commit(repo api.Repo) error {
 		return err
 	}
 
-	lumber.Info("Updated", repo.NameWithOwner, "to new year")
+	timber.Info("Updated", repo.NameWithOwner, "to new year")
 	return nil
 }

@@ -5,32 +5,33 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gleich/lumber/v2"
 	"go.mattglei.ch/newyear/internal/api"
 	"go.mattglei.ch/newyear/internal/out"
 	"go.mattglei.ch/newyear/internal/update"
+	"go.mattglei.ch/timber"
 )
 
 func main() {
-	PAT := out.Ask("What is your PAT (personal access token)?")
-	if PAT == "" || !strings.HasPrefix(PAT, "ghp_") {
-		lumber.FatalMsg("Please enter a valid personal access token")
+
+	pat := out.Ask("What is your PAT (personal access token)?")
+	if pat == "" || !strings.HasPrefix(pat, "ghp_") {
+		timber.FatalMsg("Please enter a valid personal access token")
 	}
 
-	client := api.Client(PAT)
+	client := api.Client(pat)
 
 	repos, err := api.Repos(client)
 	if err != nil {
-		lumber.Fatal(err, "Failed to load repos")
+		timber.Fatal(err, "Failed to load repos")
 	}
 
 	tmpDir, err := update.CreateTmpDir()
 	if err != nil {
-		lumber.Fatal(err, "Failed to create temp directory for cloning")
+		timber.Fatal(err, "Failed to create temp directory for cloning")
 	}
 	err = os.Chdir(tmpDir)
 	if err != nil {
-		lumber.Fatal(err, "Failed to change directory to temporary directory for cloning")
+		timber.Fatal(err, "Failed to change directory to temporary directory for cloning")
 	}
 
 	updates := 0
@@ -40,35 +41,35 @@ func main() {
 		}
 		err = update.Clone(repo)
 		if err != nil {
-			lumber.Fatal(err, "Failed to clone", repo.NameWithOwner)
+			timber.Fatal(err, "Failed to clone", repo.NameWithOwner)
 		}
-		lumber.Success("Cloned", repo.NameWithOwner, fmt.Sprintf("(%v/%v)", i+1, len(repos)))
+		timber.Done("Cloned", repo.NameWithOwner, fmt.Sprintf("(%v/%v)", i+1, len(repos)))
 
 		updated, err := update.Copyright(repo)
 		if err != nil {
-			lumber.Fatal(err, "Failed to update copyright for", repo.NameWithOwner)
+			timber.Fatal(err, "Failed to update copyright for", repo.NameWithOwner)
 		}
 
 		if updated {
 			updates++
 			err = update.Commit(repo)
 			if err != nil {
-				lumber.Fatal(err, "Failed to commit & push changes for", repo.NameWithOwner)
+				timber.Fatal(err, "Failed to commit & push changes for", repo.NameWithOwner)
 			}
 		}
 
 		err = os.Chdir("..")
 		if err != nil {
-			lumber.Fatal(err, "Failed to change directory up out of the repository")
+			timber.Fatal(err, "Failed to change directory up out of the repository")
 		}
 	}
 
 	fmt.Println()
-	lumber.Success("Updated", updates, "repositories from", os.Args[1], "to", os.Args[2])
+	timber.Done("Updated", updates, "repositories from", os.Args[1], "to", os.Args[2])
 
 	err = os.RemoveAll(tmpDir)
 	if err != nil {
-		lumber.Fatal(
+		timber.Fatal(
 			err,
 			"Failed to remove temporary directory. Please remove",
 			tmpDir,

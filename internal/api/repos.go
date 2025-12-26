@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gleich/lumber/v2"
 	"github.com/shurcooL/githubv4"
+	"go.mattglei.ch/timber"
 )
 
 type Repo struct {
@@ -21,7 +21,7 @@ type Repo struct {
 
 func Repos(client *githubv4.Client) ([]Repo, error) {
 	fmt.Println()
-	lumber.Info("Fetching repos")
+	timber.Info("Fetching repos")
 
 	repos := []Repo{}
 	vars := map[string]interface{}{
@@ -51,6 +51,6 @@ func Repos(client *githubv4.Client) ([]Repo, error) {
 		}
 		vars["cursor"] = githubv4.String(query.Viewer.Repositories.PageInfo.EndCursor)
 	}
-	lumber.Success("Loaded", len(repos), "repos")
+	timber.Done("Loaded", len(repos), "repos")
 	return repos, nil
 }
