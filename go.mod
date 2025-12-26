@@ -1,4 +1,4 @@
-module github.com/gleich/new_yearify
+module go.mattglei.ch/newyear
 
 go 1.17
 

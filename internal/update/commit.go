@@ -6,7 +6,7 @@ import (
 	"os/exec"
 
 	"github.com/gleich/lumber/v2"
-	"github.com/gleich/new_yearify/pkg/api"
+	"go.mattglei.ch/newyear/internal/api"
 )
 
 func Commit(repo api.Repo) error {

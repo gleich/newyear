@@ -4,7 +4,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/gleich/new_yearify/pkg/api"
+	"go.mattglei.ch/newyear/internal/api"
 )
 
 func Clone(repo api.Repo) error {

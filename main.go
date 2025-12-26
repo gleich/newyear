@@ -6,9 +6,9 @@ import (
 	"strings"
 
 	"github.com/gleich/lumber/v2"
-	"github.com/gleich/new_yearify/pkg/api"
-	"github.com/gleich/new_yearify/pkg/out"
-	"github.com/gleich/new_yearify/pkg/update"
+	"go.mattglei.ch/newyear/internal/api"
+	"go.mattglei.ch/newyear/internal/out"
+	"go.mattglei.ch/newyear/internal/update"
 )
 
 func main() {

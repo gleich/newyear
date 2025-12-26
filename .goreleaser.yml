@@ -1,7 +1,7 @@
 release:
   github:
     owner: gleich
-    name: new_yearify
+    name: newyear
   prerelease: auto
 
 before:
@@ -26,9 +26,9 @@ brews:
       owner: gleich
       name: homebrew-tap
     folder: Formula
-    homepage: 'https://github.com/gleich/new_yearify'
+    homepage: 'https://go.mattglei.ch/newyear'
     description: 'Update the copyright year in all of your GitHub repos '
     commit_author:
       name: gleich
       email: git@mattglei.ch
-    install: bin.install "new_yearify"
+    install: bin.install "newyear"

@@ -4,7 +4,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gleich/new_yearify/pkg/api"
+	"go.mattglei.ch/newyear/internal/api"
 )
 
 func Copyright(repo api.Repo) (bool, error) {

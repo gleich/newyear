@@ -6,7 +6,7 @@ import (
 )
 
 func CreateTmpDir() (string, error) {
-	loc := filepath.Join(os.TempDir(), "new_yearify")
+	loc := filepath.Join(os.TempDir(), "newyear")
 	if _, err := os.Stat(loc); err == nil {
 		err := os.RemoveAll(loc)
 		if err != nil {
