@@ -3,6 +3,7 @@ package update
 import (
 	"os"
 	"os/exec"
+	"slices"
 
 	"go.mattglei.ch/newyear/internal/api"
 )
@@ -11,11 +12,8 @@ func Clone(repo api.Repo) error {
 	source := repo.URL + ".git"
 
 	// switch to ssh if flag "--ssh" is passed in
-	for _, arg := range os.Args {
-		if arg == "--ssh" {
-			source = "git@github.com:" + repo.NameWithOwner
-			break
-		}
+	if slices.Contains(os.Args, "--ssh") {
+		source = "git@github.com:" + repo.NameWithOwner
 	}
 
 	err := exec.Command("git", "clone", source).Run()
