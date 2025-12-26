@@ -1,34 +1,40 @@
+version: 2
 release:
   github:
     owner: gleich
-    name: newyear
+    name: 'newyear'
   prerelease: auto
-
 before:
   hooks:
     - go mod download
-
 builds:
-  - goos:
+  - id: newyear
+    main: ./cmd
+    binary: newyear
+    env:
+      - CGO_ENABLED=0
+    goos:
       - darwin
       - linux
       - windows
     goarch:
       - amd64
-      - arm
       - arm64
-    goarm:
-      - 6
-      - 7
-
-brews:
-  - tap:
+homebrew_casks:
+  - name: synthient
+    url:
+      template: 'https://github.com/gleich/newyear/releases/download/{{ .Tag }}/{{ .ArtifactName }}'
+    homepage: https://github.com/gleich/newyear
+    description: Update the copyright year in all of your GitHub repositories
+    zap:
+      delete:
+        - ~/.config/synthient
+    repository:
       owner: gleich
       name: homebrew-tap
-    folder: Formula
-    homepage: 'https://go.mattglei.ch/newyear'
-    description: 'Update the copyright year in all of your GitHub repos '
-    commit_author:
-      name: gleich
-      email: git@mattglei.ch
-    install: bin.install "newyear"
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/newyear"]
+          end
