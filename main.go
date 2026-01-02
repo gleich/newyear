@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"go.mattglei.ch/newyear/internal/api"
 	"go.mattglei.ch/newyear/internal/out"
@@ -12,6 +13,8 @@ import (
 )
 
 func main() {
+	timber.Timezone(time.Local)
+	timber.TimeFormat("03:04:05")
 
 	pat := out.Ask("What is your PAT (personal access token)?")
 	if pat == "" || !strings.HasPrefix(pat, "ghp_") {
